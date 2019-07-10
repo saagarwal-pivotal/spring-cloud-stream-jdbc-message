@@ -3,9 +3,9 @@ applications:
   - name: message-source
     buildpacks:
       - java_buildpack_offline
-    path: message-source.jar
+    path: spring-cloud-stream-jdbc-message.jar
     routes:
-      - route: ((CF_SPACE))-message-source.((CF_DOMAIN))
+      - route: ((CF_SPACE))-spring-cloud-stream-jdbc-message.((CF_DOMAIN))
     env:
       JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
       SPRING_PROFILES_ACTIVE: ((CF_SPACE))
