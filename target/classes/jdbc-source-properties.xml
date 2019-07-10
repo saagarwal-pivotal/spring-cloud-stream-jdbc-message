@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+  <entry key="spring.cloud.stream.bindings.output.destination">x_inboundmsg</entry>
+
+  <entry key="jdbc.query">
+    <![CDATA[
+          SELECT XINBOUND_ID AS "xInboundId",
+                   STORE_ID AS "storeId",
+                  ORDERS_ID AS "orderId"
+           FROM X_INBOUNDMSG
+          WHERE     STATUS = 'PI'
+                AND STATE = 0
+                AND ORDERSTATUS ='S'
+                AND (RETRYCOUNT IS NULL OR RETRYCOUNT < 4)
+                AND STORE_ID=11201
+          ORDER BY TIMECREATED
+		]]>
+  </entry>
+
+  <entry key="jdbc.update">
+    <![CDATA[
+          UPDATE X_INBOUNDMSG
+          SET TIMELOCKED = CURRENT_TIMESTAMP, STATUS = 'PP'
+          WHERE XINBOUND_ID IN (:xInboundId)
+		]]>
+  </entry>
+  <entry key="jdbc.maxRowsPerPoll">100</entry>
+</properties>

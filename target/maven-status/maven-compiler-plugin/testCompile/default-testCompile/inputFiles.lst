@@ -1,0 +1,3 @@
+/Users/saagarwal/workspace/spring-cloud-stream/spring-cloud-stream-jdbc-message/src/test/java/com/pivotal/microservices/customerorder/messagesource/MessageSourceTestBase.java
+/Users/saagarwal/workspace/spring-cloud-stream/spring-cloud-stream-jdbc-message/src/test/java/com/pivotal/microservices/customerorder/messagesource/MessageSourceApplicationTests.java
+/Users/saagarwal/workspace/spring-cloud-stream/spring-cloud-stream-jdbc-message/target/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/ContractVerifierTest.java

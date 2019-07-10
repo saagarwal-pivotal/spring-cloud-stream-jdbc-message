@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.pivotal.microservices.customerorder.messagesource.MessageSourceApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.445 s - in com.pivotal.microservices.customerorder.messagesource.MessageSourceApplicationTests

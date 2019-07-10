@@ -1,0 +1,3 @@
+com/pivotal/microservices/customerorder/messagesource/MessageSourceTestBase.class
+org/springframework/cloud/contract/verifier/tests/ContractVerifierTest.class
+com/pivotal/microservices/customerorder/messagesource/MessageSourceApplicationTests.class

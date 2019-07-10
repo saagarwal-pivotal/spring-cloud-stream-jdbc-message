@@ -1,0 +1,34 @@
+---
+applications:
+  - name: message-source
+    port: 8888
+    memory: 1024M
+    services:
+      - customer-order-mysql
+      - customer-order-rabbit
+    buildpacks:
+      - java_buildpack_offline
+    path: target/message-source-0.0.1-SNAPSHOT.jar
+    env:
+      spring.cloud.stream.rabbit.bindings.output.producer.autoBindDlq: true
+      spring.cloud.stream.bindings.output.binder: rabbit
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_APPLICATION_JSON: '{
+      "spring.cloud.stream.bindings.output.destination":"x_inboundmsg",
+      "jdbc.query":"SELECT XINBOUND_ID AS ''xInboundId'',
+                           STORE_ID AS ''storeId'',
+                           ORDERS_ID AS ''orderId''
+                      FROM X_INBOUNDMSG
+                     WHERE     STATUS = ''PI''
+                           AND STATE = 0
+                           AND ORDERSTATUS =''S''
+                           AND (RETRYCOUNT IS NULL OR RETRYCOUNT < 4)
+                           AND STORE_ID=11201
+                     ORDER BY TIMECREATED",
+       "jdbc.update":"UPDATE X_INBOUNDMSG
+                         SET TIMELOCKED = CURRENT_TIMESTAMP, STATUS = ''PP''
+                       WHERE XINBOUND_ID IN (:xInboundId)",
+      "jdbc.split":"true",
+      "jdbc.max-rows-per-poll":"1000"
+      }'
